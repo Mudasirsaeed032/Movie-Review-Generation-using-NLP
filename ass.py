@@ -11,7 +11,7 @@ def load_csv(file_path):
         next(csv_reader)
         
         for row in csv_reader:
-            reviews.append(row[1])
+            reviews.append(row[0])
             
     return reviews
 
@@ -26,5 +26,5 @@ reviews = load_csv(file_path)
 
 preprocessed_reviews = [preprocess_text(review) for review in reviews]
 
-for i, tokens in enumerate(preprocessed_reviews[:3]):
+for i, tokens in enumerate(preprocessed_reviews[:1]):
     print(f"Review {i+1} tokens: {tokens}")

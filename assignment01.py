@@ -3,24 +3,20 @@ import re
 from collections import defaultdict, Counter
 import random
 
-# Load the dataset from a CSV file
 def load_data(filepath):
     all_reviews = []
     review_sentiments = []
     
-    # Open the CSV and read the content
     with open(filepath, mode='r', encoding='utf-8') as file:
         reader = csv.reader(file)
         next(reader)  # Skip the header
         
-        # Append reviews and sentiments separately
         for row in reader:
             all_reviews.append(row[0])
             review_sentiments.append(row[1])
             
     return all_reviews, review_sentiments
 
-# Text preprocessing function
 def clean_and_tokenize(text):
     text = text.lower()  # Convert to lowercase
     text = re.sub(r'<br\s*/?>', ' ', text)  # Replace <br> tags with space
@@ -28,16 +24,13 @@ def clean_and_tokenize(text):
     tokens = text.split()  # Tokenize on whitespace
     return tokens
 
-# Preprocess the dataset reviews
 def prepare_corpus(reviews):
     return [clean_and_tokenize(review) for review in reviews]
 
-# Unigram Model Implementation
 def build_unigram_model(corpus):
     unigram_freq = defaultdict(int)
     total_word_count = 0
     
-    # Count occurrences of words
     for document in corpus:
         for word in document:
             unigram_freq[word] += 1
